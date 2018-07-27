@@ -1,0 +1,14 @@
+<div style="margin-right: 25%; margin-left: 25%;">
+<form #connexionForm="ngForm">
+    <div class="alert alert-danger" *ngIf="mode==1">Authentification échouée...<br>Vérifier vos données !!</div>
+  <div class="form-group">
+    <label for="login">Login</label>
+    <input type="text" class="form-control" id="login"name="login"  placeholder="Login" required [(ngModel)]="account.login" [ngModelOptions]="{standalone: true}" #login="ngModel">
+  </div>
+  <div class="form-group">
+    <label for="pwd">Mot de passe</label>
+    <input type="password" class="form-control" id="pwd" name="pwd" placeholder="Mot de passe" required [(ngModel)]="account.pwd" [ngModelOptions]="{standalone: true}" #pwd="ngModel"> 
+  </div>
+  <button [disabled]="login.errors||pwd.errors" class="btn btn-info" (click)="connexion()">Se connecter</button>
+</form>
+</div>

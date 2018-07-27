@@ -1,0 +1,121 @@
+<div *ngIf="isConnected">
+<div class="pull-right" style="margin-right: 0px;">
+    <button class="btn btn-info" data-toggle="modal" data-target="#myModal1">Nouvelle Question</button>
+</div>
+<div [chart]="chart"></div>
+
+</div>
+<div *ngIf="notConnected">
+    <form #questionForm="ngForm">
+        <div *ngFor="let quest of questions; let i = index">
+            <div class="form-group">
+                <h5><b>Question : </b>{{quest.valueQuest}}</h5>
+                <label for="genderControl"></label>
+                <input type="radio" name={{i}} [value]="excellent" [(ngModel)]="reponses[i]" style="margin-left: 70px;" [ngModelOptions]="{standalone: true}" required #genderControl="ngModel">Excellent<br>
+                <input type="radio" name={{i}} [value]="tbien" [(ngModel)]="reponses[i]" style="margin-left: 70px;" [ngModelOptions]="{standalone: true}">Trés Bon<br>
+                <input type="radio" name={{i}} [value]="moyen" [(ngModel)]="reponses[i]" style="margin-left: 70px;" [ngModelOptions]="{standalone: true}">Moyen<br>
+                <input type="radio" name={{i}} [value]="mauvais" [(ngModel)]="reponses[i]" style="margin-left: 70px;"  [ngModelOptions]="{standalone: true}">Mauvais<br>
+                <input type="radio" name={{i}} [value]="tmauvais" [(ngModel)]="reponses[i]"  style="margin-left: 70px;"  [ngModelOptions]="{standalone: true}">Trés Mauvais
+            </div>
+        </div>
+        <div class="form-group">
+        <button [disabled]="genderControl.errors" class="btn btn-success" data-toggle="modal" data-target="#myModal2" (click)="clickh()">Envoyer</button>
+        </div>
+    </form>
+</div>
+<!-- The Modal -->
+<div class="modal" id="myModal1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+  
+        <form  #addForm="ngForm">
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Nouvelle Question d'accueil</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+  
+        <!-- Modal body -->
+        <div class="modal-body">
+            <div class="form-group">
+                <label for="question"></label>
+                <input type="text" class="form-control" id="question" name="question"  placeholder="Nouvelle question" required [(ngModel)]="newQuest.valueQuest" [ngModelOptions]="{standalone: true}" #question="ngModel">
+              </div>
+        </div>
+        <!-- Modal footer -->
+        <div class="modal-footer">
+            <button [disabled]="question.errors" type="button"  class="btn btn-success pull-left" data-dismiss="modal" (click)="save()">Enregistrer</button>
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Annuler</button>
+        </div>
+        </form>
+  
+      </div>
+    </div>
+  </div>
+
+  <!-- The Modal -->
+<div class="modal" id="myModal2">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <form  #addUserForm="ngForm">
+            <!-- Modal Header -->
+            <div class="modal-header">
+              <h4 class="modal-title">Remplir le formulaire suivant pour valider</h4>
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+      
+            <!-- Modal body -->
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="nom">Nom*:</label>
+                    <input type="text" class="form-control" id="nom" name="nom"  placeholder="Votre nom" required [(ngModel)]="customer.nom" [ngModelOptions]="{standalone: true}" #nom="ngModel">
+                    <div *ngIf="nom.errors && (nom.dirty || nom.touched)" class="alert alert-danger">
+                            <div [hidden]="!nom.errors.required">
+                            Champ obligatoire!
+                            </div>
+                        </div>
+                </div>
+                <div class="form-group">
+                    <label for="prenom">Prénom*:</label>
+                    <input type="text" class="form-control" id="prenom" name="prenom"  placeholder="Votre prenom" required [(ngModel)]="customer.prenom" [ngModelOptions]="{standalone: true}" #prenom="ngModel">
+                    <div *ngIf="prenom.errors && (prenom.dirty || prenom.touched)" class="alert alert-danger">
+                            <div [hidden]="!prenom.errors.required">
+                            Champ obligatoire!
+                            </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email*:</label>
+                    <input type="email" class="form-control" id="email" name="email"  placeholder="Votre email" required [(ngModel)]="customer.email" [ngModelOptions]="{standalone: true}" #email="ngModel" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$">
+                    <div *ngIf="email.errors && (email.dirty || email.touched)" class="alert alert-danger">
+                            <div [hidden]="!email.errors.required">
+                            Email est obligatoire!
+                            </div>
+                        <div [hidden]="!email.errors.pattern"> 
+                            Email invalide!!
+                        </div>
+                        </div>
+                </div>
+                <div class="form-group">
+                    <label for="tel">Numéro de telephone*:</label>
+                    <input type="tel" class="form-control" id="tel" name="tel" placeholder="Numéro de telephone" maxlength="8" minlength="8" required [(ngModel)]="customer.tel" [ngModelOptions]="{standalone: true}" #tel="ngModel">
+                    <div *ngIf="tel.errors && (tel.dirty || tel.touched)" class="alert alert-danger">
+                            <div [hidden]="!tel.errors.required">
+                            Numéro de telephone est obligatoire!
+                            </div>
+                            <div [hidden]="!tel.errors.minlength">
+                                Numéro de telephone doit étre composé de 8 chiffre!!
+                            </div>           
+                    </div>
+                </div>
+            </div>
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button [disabled]="nom.errors||prenom.errors||email.errors||tel.errors" type="button" class="btn btn-success" data-dismiss="modal" (click)="addUser()">Enregistrer</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Annuler</button>
+            </div>
+            </form>
+      
+          </div>
+        </div>
+      </div>
