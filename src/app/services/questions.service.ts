@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Question } from '../modeles/question';
 
@@ -11,12 +12,12 @@ export class QuestionsService {
 
   constructor(private http:HttpClient) { }
 
-  public getAll() {
+  public getAll():Observable<Question[]> {
     let url=this.host+"/all";
      return this.http.get<Question[]>(url);
    }
 
-   public getAllAccueil() {
+   public getAllAccueil():Observable<Question[]>  {
     let url=this.host+"/accueil/all";
      return this.http.get<Question[]>(url);
    }

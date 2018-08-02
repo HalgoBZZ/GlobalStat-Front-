@@ -1,4 +1,4 @@
 export class Reponse{
     id:string;
-    value:string;
+    valueResponse:string;
 }

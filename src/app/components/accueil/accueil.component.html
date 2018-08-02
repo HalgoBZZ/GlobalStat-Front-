@@ -11,7 +11,7 @@
             <div class="form-group">
                 <h5><b>Question : </b>{{quest.valueQuest}}</h5>
                 <label for="genderControl"></label>
-                <input type="radio" name={{i}} [value]="excellent" [(ngModel)]="reponses[i]" style="margin-left: 70px;" [ngModelOptions]="{standalone: true}" required #genderControl="ngModel">Excellent<br>
+                <input type="radio" name={{i}} [value]="excellent" [(ngModel)]="reponses[i]" style="margin-left: 70px;" [ngModelOptions]="{standalone: true}">Excellent<br>
                 <input type="radio" name={{i}} [value]="tbien" [(ngModel)]="reponses[i]" style="margin-left: 70px;" [ngModelOptions]="{standalone: true}">Trés Bon<br>
                 <input type="radio" name={{i}} [value]="moyen" [(ngModel)]="reponses[i]" style="margin-left: 70px;" [ngModelOptions]="{standalone: true}">Moyen<br>
                 <input type="radio" name={{i}} [value]="mauvais" [(ngModel)]="reponses[i]" style="margin-left: 70px;"  [ngModelOptions]="{standalone: true}">Mauvais<br>
@@ -19,7 +19,7 @@
             </div>
         </div>
         <div class="form-group">
-        <button [disabled]="genderControl.errors" class="btn btn-success" data-toggle="modal" data-target="#myModal2" (click)="clickh()">Envoyer</button>
+        <button  class="btn btn-success" data-toggle="modal" data-target="#myModal2">Envoyer</button>
         </div>
     </form>
 </div>

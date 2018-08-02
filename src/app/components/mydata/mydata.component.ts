@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Customer } from '../../modeles/customer';
+import { UsersService } from '../../services/users.service';
 
 @Component({
   selector: 'app-mydata',
@@ -7,9 +9,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MydataComponent implements OnInit {
 
-  constructor() { }
+  users:Customer[];
+
+  constructor(private userService:UsersService) { }
 
   ngOnInit() {
+    this.users=new Array<Customer>();
+    this.getAllUsers();
+  }
+
+
+  getAllUsers():void{
+    this.userService.getAll().toPromise()
+    .then( users=> {
+      this.users = users;
+    });
   }
 
 }
